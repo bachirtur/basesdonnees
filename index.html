@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apprendre les Bases de Données Relationnelles & SQL</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ====== NAVIGATION ====== -->
+    <nav id="navbar">
+        <div class="nav-brand">📚 BDD & SQL</div>
+        <ul class="nav-links">
+            <li><a href="#section-intro">Introduction</a></li>
+            <li><a href="#section-visu">Visualisation</a></li>
+            <li><a href="#section-pk">Clé Primaire</a></li>
+            <li><a href="#section-fk">Clé Étrangère</a></li>
+            <li><a href="#section-sql">Console SQL</a></li>
+            <li><a href="#section-pratique">Pratique</a></li>
+        </ul>
+    </nav>
+
+    <!-- ====== HERO ====== -->
+    <header class="hero">
+        <div class="hero-content">
+            <h1>🗄️ Bases de Données Relationnelles & SQL</h1>
+            <p class="hero-subtitle">Un cours interactif pour comprendre, visualiser et pratiquer</p>
+            <a href="#section-intro" class="btn-hero">Commencer le cours ⬇️</a>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- ====== SECTION 1 : INTRODUCTION ====== -->
+        <section id="section-intro" class="section">
+            <div class="container">
+                <h2><span class="section-number">1</span> Introduction aux Bases de Données</h2>
+
+                <div class="card">
+                    <h3>🤔 Qu'est-ce qu'une base de données ?</h3>
+                    <p>Une <strong>base de données</strong> est un système organisé permettant de <strong>stocker</strong>, <strong>gérer</strong> et <strong>retrouver</strong> des informations de manière structurée. Pensez-y comme une armoire bien rangée où chaque tiroir contient des informations classées.</p>
+                    <div class="illustration">
+                        <div class="db-icon">🗄️</div>
+                        <div class="arrow-right">➡️</div>
+                        <div class="db-features">
+                            <span class="feature-tag">Stocker</span>
+                            <span class="feature-tag">Organiser</span>
+                            <span class="feature-tag">Rechercher</span>
+                            <span class="feature-tag">Modifier</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>🔗 Qu'est-ce qu'une base de données relationnelle ?</h3>
+                    <p>Il existe différents types de bases de données (hiérarchiques, objet, NoSQL…). Les <strong>bases de données relationnelles</strong> sont les plus utilisées au monde.</p>
+                    <p>Elles ont été mises au point en <strong>1970</strong> par <strong>Edgar Frank Codd</strong>, informaticien britannique (1923-2003). Elles sont basées sur la <strong>théorie mathématique des ensembles</strong>.</p>
+                    <p>La notion de <strong>relation</strong> (ou <strong>table</strong>) est au cœur de ce type de base de données. Une relation peut être vue comme un <strong>tableau à 2 dimensions</strong>.</p>
+                </div>
+
+                <div class="card">
+                    <h3>📖 Vocabulaire essentiel</h3>
+                    <div class="vocab-grid">
+                        <div class="vocab-item" id="vocab-table">
+                            <div class="vocab-icon">📋</div>
+                            <div class="vocab-title">Table (Relation)</div>
+                            <div class="vocab-desc">Un tableau à 2 dimensions composé d'un en-tête et d'un corps. C'est la structure de base pour organiser les données.</div>
+                        </div>
+                        <div class="vocab-item" id="vocab-row">
+                            <div class="vocab-icon">↔️</div>
+                            <div class="vocab-title">Ligne (T-uplet)</div>
+                            <div class="vocab-desc">Une ligne du tableau. Chaque t-uplet représente un enregistrement, par exemple un livre précis avec toutes ses informations.</div>
+                        </div>
+                        <div class="vocab-item" id="vocab-col">
+                            <div class="vocab-icon">↕️</div>
+                            <div class="vocab-title">Colonne (Attribut)</div>
+                            <div class="vocab-desc">Une colonne du tableau. Chaque attribut représente une propriété, par exemple le titre, l'auteur ou la note d'un livre.</div>
+                        </div>
+                        <div class="vocab-item" id="vocab-domain">
+                            <div class="vocab-icon">🔢</div>
+                            <div class="vocab-title">Domaine</div>
+                            <div class="vocab-desc">L'ensemble des valeurs admissibles pour un attribut. Par exemple : INT (entiers), TEXT (chaînes de caractères).</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====== SECTION 2 : VISUALISATION INTERACTIVE ====== -->
+        <section id="section-visu" class="section section-alt">
+            <div class="container">
+                <h2><span class="section-number">2</span> Visualisation Interactive</h2>
+
+                <div class="card">
+                    <h3>📊 La relation « LIVRES »</h3>
+                    <p>Cliquez sur une <strong>ligne</strong> (t-uplet) ou sur un <strong>en-tête de colonne</strong> (attribut) pour obtenir une explication.</p>
+
+                    <div class="table-labels">
+                        <span class="label-header">⬇️ En-tête (noms des attributs)</span>
+                    </div>
+
+                    <div class="interactive-table-wrapper">
+                        <div class="table-side-label label-body">Corps (données)</div>
+                        <table id="table-livres-visu" class="interactive-table">
+                            <!-- Généré par JavaScript -->
+                        </table>
+                    </div>
+
+                    <!-- Zone d'explication qui apparaît au clic -->
+                    <div id="explanation-box" class="explanation-box hidden">
+                        <button id="close-explanation" class="btn-close">✕</button>
+                        <div id="explanation-content"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====== SECTION 3 : CLÉ PRIMAIRE ====== -->
+        <section id="section-pk" class="section">
+            <div class="container">
+                <h2><span class="section-number">3</span> La Clé Primaire</h2>
+
+                <div class="card">
+                    <h3>⚠️ Problème : les doublons</h3>
+                    <p>Dans une base de données relationnelle, <strong>une relation ne peut pas contenir deux t-uplets identiques</strong>. Observez le tableau ci-dessous : il contient un doublon !</p>
+
+                    <table id="table-doublons" class="data-table table-error">
+                        <!-- Généré par JavaScript -->
+                    </table>
+
+                    <div class="duplicate-warning" id="duplicate-warning">
+                        <span>🚨</span> Ce tableau contient des doublons ! Le SGBD ne doit pas autoriser cette situation.
+                    </div>
+
+                    <button id="btn-fix-duplicates" class="btn btn-action">🔧 Corriger les doublons</button>
+
+                    <div id="fix-explanation" class="explanation-inline hidden">
+                        <p>✅ <strong>Doublons supprimés !</strong> Chaque t-uplet est maintenant unique grâce à la <strong>clé primaire</strong> (l'attribut <code>id</code>).</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>🔑 Qu'est-ce qu'une clé primaire ?</h3>
+                    <p>Une <strong>clé primaire</strong> est un attribut dont la valeur permet d'<strong>identifier de manière unique</strong> chaque t-uplet de la relation. On ne doit jamais trouver deux fois la même valeur pour cet attribut.</p>
+
+                    <div class="pk-analysis">
+                        <h4>Peut-on utiliser ces attributs comme clé primaire ?</h4>
+                        <div class="pk-check" id="pk-checks">
+                            <!-- Généré par JS -->
+                        </div>
+                    </div>
+
+                    <div class="schema-box">
+                        <h4>📝 Notation du schéma relationnel</h4>
+                        <p class="schema-notation">LIVRES(<u><strong>id</strong></u> : INT, titre : TEXT, id_auteur : INT, ann_publi : INT, note : INT)</p>
+                        <p class="schema-legend">Les attributs <u>soulignés</u> sont des clés primaires.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====== SECTION 4 : CLÉ ÉTRANGÈRE ET RELATIONS ====== -->
+        <section id="section-fk" class="section section-alt">
+            <div class="container">
+                <h2><span class="section-number">4</span> Clé Étrangère et Relations</h2>
+
+                <div class="card">
+                    <h3>🔗 Pourquoi utiliser plusieurs tables ?</h3>
+                    <p>Si on met toutes les informations dans une seule table, on obtient de la <strong>redondance</strong> : les mêmes données sont répétées inutilement. Par exemple, les informations d'un auteur seraient répétées pour chacun de ses livres.</p>
+                    <p>La solution : <strong>créer deux tables séparées</strong> et établir un <strong>lien</strong> entre elles grâce à une <strong>clé étrangère</strong>.</p>
+                </div>
+
+                <div class="card">
+                    <h3>📊 Les deux tables liées</h3>
+                    <p>Survolez un livre pour voir le lien vers son auteur. Cliquez sur une valeur de <code>id_auteur</code> pour mettre en évidence la correspondance.</p>
+
+                    <div class="tables-relationship">
+                        <div class="rel-table-container">
+                            <h4 class="table-title">📖 Relation LIVRES</h4>
+                            <div class="table-scroll">
+                                <table id="table-livres-fk" class="data-table rel-table">
+                                    <!-- Généré par JS -->
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="link-visual">
+                            <div class="link-arrow" id="link-arrow">
+                                <div class="link-line"></div>
+                                <div class="link-label">id_auteur → id</div>
+                                <div class="link-line"></div>
+                            </div>
+                        </div>
+
+                        <div class="rel-table-container">
+                            <h4 class="table-title">✍️ Relation AUTEURS</h4>
+                            <div class="table-scroll">
+                                <table id="table-auteurs-fk" class="data-table rel-table">
+                                    <!-- Généré par JS -->
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="fk-explanation-box" class="explanation-inline hidden">
+                        <p id="fk-explanation-text"></p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>📝 Définitions</h3>
+                    <div class="definition-box">
+                        <p><strong>Clé étrangère :</strong> Un attribut d'une relation R<sub>A</sub> qui prend les valeurs de la clé primaire d'une autre relation R<sub>B</sub>. Cela permet d'établir un lien entre les deux relations.</p>
+                    </div>
+                    <div class="schema-box">
+                        <h4>Schéma relationnel complet</h4>
+                        <p class="schema-notation">AUTEURS(<u><strong>id</strong></u> : INT, nom : TEXT, prenom : TEXT, ann_naissance : INT, langue_ecriture : TEXT)</p>
+                        <p class="schema-notation">LIVRES(<u><strong>id</strong></u> : INT, titre : TEXT, <strong>#id_auteur</strong> : INT, ann_publi : INT, note : INT)</p>
+                        <p class="schema-legend">Les attributs <u>soulignés</u> sont des clés primaires. Le <strong>#</strong> indique une clé étrangère.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====== SECTION 5 : CONSOLE SQL ====== -->
+        <section id="section-sql" class="section">
+            <div class="container">
+                <h2><span class="section-number">5</span> Console SQL Interactive</h2>
+
+                <div class="card">
+                    <h3>💻 Qu'est-ce que SQL ?</h3>
+                    <p><strong>SQL</strong> (Structured Query Language) est le langage utilisé pour <strong>interroger</strong> et <strong>manipuler</strong> les bases de données relationnelles. Voici les commandes de base :</p>
+                    <div class="sql-ref">
+                        <div class="sql-ref-item">
+                            <code>SELECT * FROM livres</code>
+                            <span>→ Sélectionner toutes les colonnes de la table livres</span>
+                        </div>
+                        <div class="sql-ref-item">
+                            <code>SELECT titre FROM livres</code>
+                            <span>→ Sélectionner uniquement la colonne titre</span>
+                        </div>
+                        <div class="sql-ref-item">
+                            <code>SELECT * FROM livres WHERE note > 8</code>
+                            <span>→ Filtrer les livres ayant une note supérieure à 8</span>
+                        </div>
+                        <div class="sql-ref-item">
+                            <code>SELECT titre, nom FROM livres JOIN auteurs ON livres.id_auteur = auteurs.id</code>
+                            <span>→ Joindre les tables livres et auteurs</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card card-console">
+                    <h3>🖥️ Console SQL</h3>
+                    <p>Écrivez votre requête SQL ci-dessous et cliquez sur <strong>Exécuter</strong> pour voir le résultat.</p>
+
+                    <div class="console-area">
+                        <label for="sql-input" class="console-label">Requête SQL :</label>
+                        <textarea id="sql-input" class="sql-textarea" rows="3" placeholder="Écrivez votre requête ici, par exemple : SELECT * FROM livres" spellcheck="false">SELECT * FROM livres</textarea>
+                        <div class="console-buttons">
+                            <button id="btn-run-sql" class="btn btn-run">▶️ Exécuter</button>
+                            <button id="btn-clear-sql" class="btn btn-secondary">🗑️ Effacer</button>
+                            <button id="btn-reset-db" class="btn btn-secondary">🔄 Réinitialiser la BDD</button>
+                        </div>
+                    </div>
+
+                    <div id="sql-result-area" class="result-area hidden">
+                        <h4 id="sql-result-title">Résultat :</h4>
+                        <div id="sql-result" class="sql-result"></div>
+                    </div>
+
+                    <div id="sql-error" class="sql-error hidden"></div>
+
+                    <!-- Exemples rapides -->
+                    <div class="quick-queries">
+                        <h4>⚡ Exemples rapides (cliquez pour essayer) :</h4>
+                        <div class="query-chips">
+                            <button class="chip" data-query="SELECT * FROM livres">SELECT * FROM livres</button>
+                            <button class="chip" data-query="SELECT titre, ann_publi FROM livres">SELECT titre, ann_publi FROM livres</button>
+                            <button class="chip" data-query="SELECT * FROM livres WHERE note > 8">WHERE note > 8</button>
+                            <button class="chip" data-query="SELECT * FROM livres WHERE ann_publi >= 1960">WHERE ann_publi >= 1960</button>
+                            <button class="chip" data-query="SELECT * FROM auteurs">SELECT * FROM auteurs</button>
+                            <button class="chip" data-query="SELECT * FROM auteurs WHERE langue_ecriture = 'français'">Auteurs français</button>
+                            <button class="chip" data-query="SELECT titre, nom, prenom FROM livres JOIN auteurs ON livres.id_auteur = auteurs.id">JOIN livres + auteurs</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====== SECTION 6 : PRATIQUE ====== -->
+        <section id="section-pratique" class="section section-alt">
+            <div class="container">
+                <h2><span class="section-number">6</span> Exercices de Pratique</h2>
+
+                <div class="card">
+                    <h3>🎯 À vous de jouer !</h3>
+                    <p>Pour chaque exercice, écrivez la requête SQL dans la console puis vérifiez avec la solution.</p>
+                </div>
+
+                <!-- Exercice 1 -->
+                <div class="card exercise-card" id="ex1">
+                    <div class="exercise-header">
+                        <span class="exercise-number">Exercice 1</span>
+                        <span class="exercise-difficulty easy">Facile</span>
+                    </div>
+                    <p class="exercise-text">Affichez <strong>tous les livres</strong> avec toutes leurs informations.</p>
+                    <div class="exercise-actions">
+                        <button class="btn btn-solution" data-exercise="1">👁️ Voir la solution</button>
+                        <button class="btn btn-run-exercise" data-exercise="1">▶️ Exécuter la solution</button>
+                    </div>
+                    <div class="solution hidden" id="solution-1">
+                        <code>SELECT * FROM livres</code>
+                    </div>
+                    <div class="exercise-result hidden" id="result-ex-1"></div>
+                </div>
+
+                <!-- Exercice 2 -->
+                <div class="card exercise-card" id="ex2">
+                    <div class="exercise-header">
+                        <span class="exercise-number">Exercice 2</span>
+                        <span class="exercise-difficulty easy">Facile</span>
+                    </div>
+                    <p class="exercise-text">Affichez uniquement les <strong>titres</strong> de tous les livres.</p>
+                    <div class="exercise-actions">
+                        <button class="btn btn-solution" data-exercise="2">👁️ Voir la solution</button>
+                        <button class="btn btn-run-exercise" data-exercise="2">▶️ Exécuter la solution</button>
+                    </div>
+                    <div class="solution hidden" id="solution-2">
+                        <code>SELECT titre FROM livres</code>
+                    </div>
+                    <div class="exercise-result hidden" id="result-ex-2"></div>
+                </div>
+
+                <!-- Exercice 3 -->
+                <div class="card exercise-card" id="ex3">
+                    <div class="exercise-header">
+                        <span class="exercise-number">Exercice 3</span>
+                        <span class="exercise-difficulty medium">Moyen</span>
+                    </div>
+                    <p class="exercise-text">Trouvez tous les livres publiés <strong>après 1950</strong>.</p>
+                    <div class="exercise-actions">
+                        <button class="btn btn-solution" data-exercise="3">👁️ Voir la solution</button>
+                        <button class="btn btn-run-exercise" data-exercise="3">▶️ Exécuter la solution</button>
+                    </div>
+                    <div class="solution hidden" id="solution-3">
+                        <code>SELECT * FROM livres WHERE ann_publi > 1950</code>
+                    </div>
+                    <div class="exercise-result hidden" id="result-ex-3"></div>
+                </div>
+
+                <!-- Exercice 4 -->
+                <div class="card exercise-card" id="ex4">
+                    <div class="exercise-header">
+                        <span class="exercise-number">Exercice 4</span>
+                        <span class="exercise-difficulty medium">Moyen</span>
+                    </div>
+                    <p class="exercise-text">Affichez <strong>tous les auteurs</strong> avec toutes leurs informations.</p>
+                    <div class="exercise-actions">
+                        <button class="btn btn-solution" data-exercise="4">👁️ Voir la solution</button>
+                        <button class="btn btn-run-exercise" data-exercise="4">▶️ Exécuter la solution</button>
+                    </div>
+                    <div class="solution hidden" id="solution-4">
+                        <code>SELECT * FROM auteurs</code>
+                    </div>
+                    <div class="exercise-result hidden" id="result-ex-4"></div>
+                </div>
+
+                <!-- Exercice 5 -->
+                <div class="card exercise-card" id="ex5">
+                    <div class="exercise-header">
+                        <span class="exercise-number">Exercice 5</span>
+                        <span class="exercise-difficulty medium">Moyen</span>
+                    </div>
+                    <p class="exercise-text">Trouvez les livres qui ont une <strong>note supérieure ou égale à 9</strong>.</p>
+                    <div class="exercise-actions">
+                        <button class="btn btn-solution" data-exercise="5">👁️ Voir la solution</button>
+                        <button class="btn btn-run-exercise" data-exercise="5">▶️ Exécuter la solution</button>
+                    </div>
+                    <div class="solution hidden" id="solution-5">
+                        <code>SELECT * FROM livres WHERE note >= 9</code>
+                    </div>
+                    <div class="exercise-result hidden" id="result-ex-5"></div>
+                </div>
+
+                <!-- Exercice 6 -->
+                <div class="card exercise-card" id="ex6">
+                    <div class="exercise-header">
+                        <span class="exercise-number">Exercice 6</span>
+                        <span class="exercise-difficulty hard">Avancé</span>
+                    </div>
+                    <p class="exercise-text">Affichez le <strong>titre</strong> de chaque livre avec le <strong>nom</strong> et le <strong>prénom</strong> de son auteur (jointure entre les deux tables).</p>
+                    <div class="exercise-actions">
+                        <button class="btn btn-solution" data-exercise="6">👁️ Voir la solution</button>
+                        <button class="btn btn-run-exercise" data-exercise="6">▶️ Exécuter la solution</button>
+                    </div>
+                    <div class="solution hidden" id="solution-6">
+                        <code>SELECT titre, nom, prenom FROM livres JOIN auteurs ON livres.id_auteur = auteurs.id</code>
+                    </div>
+                    <div class="exercise-result hidden" id="result-ex-6"></div>
+                </div>
+
+                <!-- Exercice 7 -->
+                <div class="card exercise-card" id="ex7">
+                    <div class="exercise-header">
+                        <span class="exercise-number">Exercice 7</span>
+                        <span class="exercise-difficulty hard">Avancé</span>
+                    </div>
+                    <p class="exercise-text">Affichez les auteurs qui écrivent en <strong>français</strong>.</p>
+                    <div class="exercise-actions">
+                        <button class="btn btn-solution" data-exercise="7">👁️ Voir la solution</button>
+                        <button class="btn btn-run-exercise" data-exercise="7">▶️ Exécuter la solution</button>
+                    </div>
+                    <div class="solution hidden" id="solution-7">
+                        <code>SELECT * FROM auteurs WHERE langue_ecriture = 'français'</code>
+                    </div>
+                    <div class="exercise-result hidden" id="result-ex-7"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====== SECTION BONUS : MODE DÉFI ====== -->
+        <section id="section-defi" class="section">
+            <div class="container">
+                <h2><span class="section-number">🏆</span> Mode Défi</h2>
+
+                <div class="card card-challenge">
+                    <h3>🚀 Écrivez vos propres requêtes !</h3>
+                    <p>Utilisez la console ci-dessous pour explorer librement la base de données. Essayez de répondre aux défis proposés ou inventez vos propres requêtes !</p>
+
+                    <div class="challenge-ideas">
+                        <h4>💡 Idées de défis :</h4>
+                        <ul>
+                            <li>Trouver tous les livres publiés avant 1950</li>
+                            <li>Afficher les livres avec une note de 10</li>
+                            <li>Trouver les livres écrits par des auteurs anglais (avec JOIN)</li>
+                            <li>Afficher le titre et l'année de publication des livres ayant une note supérieure à 7</li>
+                        </ul>
+                    </div>
+
+                    <div class="console-area">
+                        <label for="challenge-input" class="console-label">Votre requête :</label>
+                        <textarea id="challenge-input" class="sql-textarea" rows="3" placeholder="Écrivez votre requête SQL ici..." spellcheck="false"></textarea>
+                        <div class="console-buttons">
+                            <button id="btn-run-challenge" class="btn btn-run">▶️ Exécuter</button>
+                            <button id="btn-clear-challenge" class="btn btn-secondary">🗑️ Effacer</button>
+                        </div>
+                    </div>
+
+                    <div id="challenge-result-area" class="result-area hidden">
+                        <h4>Résultat :</h4>
+                        <div id="challenge-result" class="sql-result"></div>
+                    </div>
+                    <div id="challenge-error" class="sql-error hidden"></div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ====== FOOTER ====== -->
+    <footer>
+        <p>📚 Cours interactif — Bases de Données Relationnelles & SQL — Lycée</p>
+        <p>Données inspirées du cours de David Roche (CC BY-SA)</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
